@@ -1,24 +1,33 @@
-<h1>User info</h1>
-<%= image_tag @user.get_image(100,100) %>
-<h4>Name<%= @user.name %></h4>
-<h4>Introduction<%= @user.introduction %></h4>
-<p><%= link_to'プロフィール編集',edit_user_path(current_user.id) %></p>
 
-<h1>New Book</h1>
-<%= form_with model: @book do |f| %>
-<h4>Title</h4>
-<%= f.text_field:title %>
-<h4>Opinion</h4>
-<%= f.text_area:opinion %>
-<%=f.submit'Create Book' %>
-<% end %>
-
-<h1>Books Detail</h1>
-<% @books.each do |book| %>
-<div>
-<p><%= book.title %></P>
-<p><%= book.opinion %></P>
-<%= link_to'Edit',edit_book_path %>
-<%= link_to'Destroy',"/books/#{book.id}",method: :delete,"data-confirm"=>"本当に消しますか？" %>
+<div class="container px-5 px-sm-0">
+<div class="row">
+     <div class="co;-md-3">
+      <%=render'list',book:@book,user:@user %>
+     </div>
+    <div class="col-md-8 offset-md-1">
+     <h2>Books</h2>
+     <table class="table table-hover table-inserve">
+      <thead>
+       <tr>
+        <th></th>
+        <th>Title</th>
+        <th>Opinion</th>
+       </tr>
+      </thead>
+      <tbody>
+       <% @books.each do |book| %>
+       <tr>
+        <th>
+        <%= link_to book_path(book) do %>
+        <%= image_tag @user.get_profile_image(100,100) %>
+       <% end %>
+        </th>
+        <th><%= link_to book.title,book_path(book) %><th>
+        <th><%= book.body %></th>
+       </tr>
+        <% end %>
+       </tbody>
+      </table>
+    </div>
+  </div>
 </div>
-<% end %>
