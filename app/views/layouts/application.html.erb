@@ -65,7 +65,9 @@
   </nav>
     </header>
     <main>
-    <%= render 'layouts/flash' %>
+    <% if flash[:notice] %>
+    <%= flash[:notice] %>
+    <% end %>
     <%= yield %>
     </main>
     <footer>
